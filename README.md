@@ -78,4 +78,25 @@ Try typing the code below in the first cell in the notebook to the right of the 
 import this
 Then click the run button in the middle of the menu at the top of the notebook.
 
+--------------------------------------------------------------------------------------------------------------------------------------------
+Protege Tool Installation:
+--------------------------------------------------------------------------------------------------------------------------------------------
+- Click on the download link and download (http://protege.stanford.edu/products.php#desktop-protege)
+- Navigate to the folder the application was downloaded
+- Extract all folders from the compressed folders and select the destination folder 
+- Double click on protege to launch protege
+--------------------------------------------------------------------------------------------------------------------------------------------
+How To Use:
+--------------------------------------------------------------------------------------------------------------------------------------------
+- Click on the provided link()
+- The browser displays the main page and navigate to the button click to go to query page 
+- It redirects to the page where it explains all the query filters and click on the respective query buttons to display the data according to the query functionality
+--------------------------------------------------------------------------------------------------------------------------------------------
+Testing using postman:
+--------------------------------------------------------------------------------------------------------------------------------------------
+- Navigate to Postman application
+- Copy the respective webserver url and paste it in postman and change the method type to GET
+- Navigate to the params and insert value as SPARQL query
+- The data will be diplayed in the body 
+
  --------------------------------------------------------------------------------------------------------------------------------------------
