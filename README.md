@@ -4,7 +4,7 @@ GitHub repo for SER 531 Spring 22 Team 12.
 
 * Clone the repo git clone -b master https://github.com/ksharm53/SER-531-Team12.git
 
-
+* Our project is hosted on: http://ser531team12project.devanshgajjar.com/
 --------------------------------------------------------------------------------------------------------------------------------------------
 Authors
 --------------------------------------------------------------------------------------------------------------------------------------------
