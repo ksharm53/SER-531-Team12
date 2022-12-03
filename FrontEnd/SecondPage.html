@@ -10,7 +10,7 @@
         <style>
             .center {
      margin: auto;
-     margin-top: 3%;
+     margin-top: 10%;
     width: 60%;
     /* border: 3px solid #73AD21; */
     padding: 10px;
@@ -56,20 +56,58 @@
             //clear datatable
             table.clear().draw();
         }
-        function queryData(que){
+        function queryData(que, buttonNo){
+            var table = document.getElementById('table_id'),
+                    rows = table.rows;
+            var c1 = document.getElementById("table_col_1");
+            var c2 = document.getElementById("table_col_2");
+            var c3 = document.getElementById("table_col_3");
+                if(buttonNo == 1)
+                {
+                    c1.innerHTML = "TranDate";
+                    c2.innerHTML = "Date";
+                    c3.innerHTML = "Frequency";
+                }
+                else if(buttonNo == 2)
+                {
+                    c1.innerHTML = "TranDate";
+                    c2.innerHTML = "Date";
+                    c3.innerHTML = "AvgLenStay";
+                }
+                else if(buttonNo == 3)
+                {
+                    c1.innerHTML = "TranDate";
+                    c2.innerHTML = "Hour";
+                    c3.innerHTML = "Frequency";
+                }
+                else if(buttonNo == 4)
+                {
+                    c1.innerHTML = "TranDate";
+                    c2.innerHTML = "Hours";
+                    c3.innerHTML = "Open";
+                }
+                else if(buttonNo == 5)
+                {
+                    c1.innerHTML = "TranDate";
+                    c2.innerHTML = "PrevFrequency";
+                    c3.innerHTML = "Difference (Freq1 - Freq2)";
+                }
+                else if(buttonNo == 6)
+                {
+                    c1.innerHTML = "Subject";
+                    c2.innerHTML = "Predicate";
+                    c3.innerHTML = "Object";
+                }
                 clearTable()
                 $.ajax({
                     type : "GET",
                     url: "http://ec2-54-213-100-245.us-west-2.compute.amazonaws.com:3030/SDFC/sparql?query="+que,
                     success: function(response){
-                        console.log("aayaaa");
-                        //console.log(response);
                         const map = response.head.vars;
-                        console.log(map)
+                        // console.log(map)
                         var values = response.results.bindings;
-                        console.log(values)
-                        console.log(values.length)
-                        console.log("Inner Values+ KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+                        // console.log(values)
+                        // console.log(values.length)
                         for(var i=0; i<values.length; i++){
                                     console.log(values[i][map[0]].value);
                                     console.log(values[i][map[1]].value);
@@ -82,57 +120,54 @@
                     }
             });
         }
-        function queryPlayer(){
-            var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT * WHERE{ ?indv a sdfc:TRANDATE . ?indv sdfc:hasTranDate ?trandate . ?indv sdfc:hasAvgLenStay ?avgstay .}";
-            queryData(query);
+        function query1(){
+            var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT ?tdate ?date ?freq WHERE{     ?trandate a sdfc:TRANDATE .     ?trandate sdfc:hasPeopleCount ?peoplecount .   ?trandate sdfc:hasDate ?date .  ?peoplecount sdfc:hasFreq ?freq .    ?trandate sdfc:hasTranDate ?tdate .    FILTER(?freq > 100 )    }";
+            queryData(query,1);
         }
-        function queryTournament(){
-            var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT ?tdate ?freq ?peoplecount WHERE{     ?trandate a sdfc:TRANDATE .     ?trandate sdfc:hasPeopleCount ?peoplecount .     ?peoplecount sdfc:hasFreq ?freq .    ?trandate sdfc:hasTranDate ?tdate .    FILTER(?freq > 100 )    }";
-            queryData(query);
+        function query2(){
+            var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT ?tdate ?date ?avgstay WHERE{     ?trandate a sdfc:TRANDATE .     ?trandate sdfc:hasPeopleCount ?peoplecount .   ?trandate sdfc:hasDate ?date .  ?peoplecount sdfc:hasFreq ?freq .    ?trandate sdfc:hasTranDate ?tdate .  ?trandate sdfc:hasAvgLenStay ?avgstay . }";
+            queryData(query,2);
         }
-        function queryCountryTeam(){
-            var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT ?tdate ?freq ?peoplecount WHERE { ?trandate a sdfc:TRANDATE . ?trandate sdfc:hasHour ?hour . ?trandate sdfc:hasPeopleCount ?peoplecount . ?peoplecount sdfc:hasFreq ?freq . ?trandate sdfc:hasTranDate ?tdate . }";
-            queryData(query);
+        function query3(){
+            var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT ?tdate ?hour ?freq WHERE{     ?trandate a sdfc:TRANDATE .     ?trandate sdfc:hasPeopleCount ?peoplecount .   ?trandate sdfc:hasDate ?date .  ?peoplecount sdfc:hasFreq ?freq .    ?trandate sdfc:hasTranDate ?tdate .?trandate sdfc:hasPeopleCount ?peoplecount . ?peoplecount sdfc:hasFreq ?freq . ?trandate sdfc:hasTranDate ?tdate . ?trandate sdfc:hasHour ?hour }";
+            queryData(query,3);
         }
-        function queryDate(){
-            var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT ?freq ?trandate ?difference WHERE{ ?indv a sdfc:TRANDATE . ?indv sdfc:hasTranDate ?trandate . ?indv sdfc:hasPeopleCount ?freq . ?freq sdfc:hasPrevFreq ?prevfrequency . ?freq sdfc:hasPrevFreq2 ?prevfrequency2 . BIND(?prevfrequency - ?prevfrequency2 as ?difference) }";
-            queryData(query);
-        }
-        function queryEvent(){
+        function query4(){
             var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT ?trandate ?hours ?open WHERE{ ?indv a sdfc:TRANDATE . ?indv sdfc:hasTranDate ?trandate . ?indv sdfc:hasHour ?hours . ?indv sdfc:isOpen ?open . FILTER(?open=True). }";
-            queryData(query);
+            queryData(query,4);
         }
-        function queryRuns(){
+        function query5(){
+            var query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns%23>PREFIX owl: <http://www.w3.org/2002/07/owl%23>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema%23>PREFIX xsd: <http://www.w3.org/2001/XMLSchema%23>PREFIX sdfc: <http://www.semanticweb.org/jaypatel/ontologies/2022/10/SDFC%23>SELECT ?trandate ?prevfrequency ?difference WHERE{ ?indv a sdfc:TRANDATE . ?indv sdfc:hasTranDate ?trandate . ?indv sdfc:hasPeopleCount ?freq . ?freq sdfc:hasPrevFreq ?prevfrequency . ?freq sdfc:hasPrevFreq2 ?prevfrequency2 . BIND(?prevfrequency - ?prevfrequency2 as ?difference) }";
+            queryData(query,5);
+        }
+        function queryTriplets(){
             var query = "SELECT ?subject ?predicate ?object WHERE {?subject ?predicate ?object}LIMIT 25";
-            queryData(query);
+            queryData(query,6);
         }
         </script>
     </head>
-    <body  style="background-color: rgb(160, 159, 155);">
+    <body style="background-color: rgb(160, 159, 155);">
     <div class="info">
         <h1>Sun Devil Fitness Center</h1>
     </div>
-
-      
-
     <div class="center">
-        <button id="player" title="Query 1: The avg length of stay for the TRANDATE" onclick="queryPlayer()">Query1</button>
+        <button id="player" title="Query 1: The avg length of stay for the TRANDATE" onclick="query1()">Query-1</button>
         <button id="player" title="Query 2: The trandate where the frequency of the given hours is greater than
-        100." onclick="queryTournament()">Query 2</button>
-        <button id="player" title="Query 3: Find the frequency and hour for the given TRANDATE" onclick="queryCountryTeam()">Query 3</button>
-        <button id="player" title="Query 4: For the given TRANDATE, find the amount by which prevFreq has grown" onclick="queryDate()">Query 4</button>
+        100." onclick="query2()">Query 2</button>
+        <button id="player" title="Query 3: Find the frequency and hour for the given TRANDATE" onclick="query3()">Query 3</button>
+        <button id="player" title="Query 4: For the given TRANDATE, find the amount by which prevFreq has grown"  onclick="query4()">Query 4</button>
         <button id="player" title="Query 5: Find the list of TRANDATE and hours for which the gym is open for a
-        specific TRANDATE" onclick="queryEvent()">Query 5</button>
-        <button id="player" title="N-triples: To generate N-triples for out OWL file." onclick="queryRuns()">N-Triples</button>
+        specific TRANDATE" onclick="query5()">Query 5</button>
+        <button id="player" title="N-triples: To generate N-triples for out OWL file." onclick="queryTriplets()">N-Triples</button>
     </div>
         <br>
         <br>
         <table id="table_id" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Subject</th>
-                    <th>Predicate</th>
-                    <th>Object</th>
+                    <th id = "table_col_1">Subject</th>
+                    <th id = "table_col_2">Predicate</th>
+                    <th id = "table_col_3">Object</th>
                 </tr>
             </thead>
             <tbody>
@@ -140,3 +175,7 @@
         </table>
     </body>
 </html>
+
+
+
+
