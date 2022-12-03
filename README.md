@@ -47,11 +47,11 @@ $ ./fuseki-server
 Installation of Anaconda on Windows
 --------------------------------------------------------------------------------------------------------------------------------------------
 - Steps:
-1)Visit Anaconda.com/downloads
-2)Select Windows
-3)Download the .exe installer
-4)Open and run the .exe installer
-5)Open the Anaconda Prompt and run some Python code
+- 1)Visit Anaconda.com/downloads
+- 2)Select Windows
+- 3)Download the .exe installer
+- 4)Open and run the .exe installer
+- 5)Open the Anaconda Prompt and run some Python code
 
 - Open a Jupyter notebook with the Windows Start Menu:
 
