@@ -42,8 +42,41 @@ $ export FUSEKI_BASE=$(pwd)
 ```
 $ ./fuseki-server
 ```
+```
+
+#Installation of Anaconda on Windows
 
 
+Steps:
+1)Visit Anaconda.com/downloads
+2)Select Windows
+3)Download the .exe installer
+4)Open and run the .exe installer
+5)Open the Anaconda Prompt and run some Python code
 
+Open a Jupyter notebook with the Windows Start Menu:
+
+One way to open a Jupyter notebook is to use the Windows Start Menu. Note that the Anaconda distribution of Python must be installed to use the Windows Start Menu to open a Jupyter notebook. 
+
+Download Anaconda at the following link: Anaconda.com/distribution
+
+Open the Windows start menu and select [Anaconda3(64 bit)] –> [Jupyter Notebook]
+
+Windows 10 Start Menu showing the Jupyter Notebook application
+
+This action opens the Jupyter file browser in a web browser tab.
+
+In the upper right select [New] –> [Python 3]
+
+Jupyter notebook file browser. Note a new Python 3 notebook is selected
+
+A new notebook will open as a new tab in your web browser.
+
+A newly opened Jupyter notebook
+
+Try typing the code below in the first cell in the notebook to the right of the In [ ]: prompt:
+
+import this
+Then click the run button in the middle of the menu at the top of the notebook.
 
  --------------------------------------------------------------------------------------------------------------------------------------------
